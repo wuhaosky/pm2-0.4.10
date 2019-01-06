@@ -1,0 +1,12 @@
+[{
+    "name" : "echo",
+    "script" : "./examples/echo.js",
+    "max" : "10"
+},{
+    "name" : "api",
+    "script" : "./examples/child.js",
+    "instances" : "4"
+},{
+    "name" : "bus",
+    "script" : "./examples/echokill.js"
+}]

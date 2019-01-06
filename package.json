@@ -1,0 +1,67 @@
+{
+  "name": "pm2",
+  "preferGlobal": "true",
+  "version": "0.4.10",
+  "engines" : {
+    "node" : ">=0.8"
+  },
+  "author": {
+    "name": "Strzelewicz Alexandre",
+    "email": "strzelewicz.alexandre@gmail.com",
+    "url": "http://apps.hemca.com"
+  },
+  "contributors": [{
+    "name"  : "Alex Kocharin",
+    "email" : "alex@kocharin.ru" 
+  }, {
+    "name" : "Devo.ps",
+    "email" : "contact@devo.ps"
+  }, {
+    "name" : "John Hurliman",
+    "email" : "jhurliman@jhurliman.org"
+  }],
+  "homepage" : "http://unitech.io/",
+  "description": "The next generation process manager for Node.js with native clusterization ",
+  "main": "index.js",
+  "scripts": {
+    "test": "bash ./test/cli.sh && NODE_ENV=test ./node_modules/mocha/bin/mocha test",
+    "froze": "npm shrinkwrap"
+  },
+  "keywords": [
+    "cli",
+    "fault tolerant",
+    "sysadmin",
+    "tools",
+    "pm2",
+    "monitoring",
+    "process manager",
+    "forever",
+    "process configuration",
+    "clustering",
+    "cluster cli",
+    "cluster"
+  ],
+  "bin": {
+    "pm2": "./bin/pm2"
+  },
+  "dependencies": {
+    "commander": "1.1.0",
+    "cli-table" : "0.2.0",
+    "multimeter": "git://github.com/Unitech/node-multimeter.git",
+    "usage" : "0.3.4",
+    "axon-rpc" : "0.0.2",
+    "watch" : "0.7.0",
+    "axon" : "0.6.1",
+    "debug" : "*"
+  },
+  "devDependencies": {
+    "mocha": "1.x",
+    "should": "1.x",
+    "better-assert" : "*"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "git://github.com/Unitech/pm2.git"
+  },
+  "license": "MIT"
+}
