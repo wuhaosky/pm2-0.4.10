@@ -12,7 +12,7 @@ var pkg       = require('../package.json');
 var util      = require('util');
 var watch     = require('watch');
 
-const PREFIX_MSG        = '\x1B[32m⌬ PM2 \x1B[39m';
+const PREFIX_MSG        = '\x1B[32m⌬ PM2 \x1B[39m';  // 在终端打印彩色字符串，参考文章：https://blog.csdn.net/lwfcgz/article/details/50248121  http://gkiwi.farbox.com/post/python-ansizhuan-yi
 const PREFIX_MSG_ERR    = '\x1B[31m⌬ PM2 [ERROR] \x1B[39m';
 const SUCCESS_EXIT      = 0;
 const ERROR_EXIT        = 1;
@@ -236,6 +236,8 @@ commander.command('*')
   commander.outputHelp();
   process.exit(ERROR_EXIT);
 });
+
+// commander.parse(process.argv);
 
 //
 // Display help
@@ -617,14 +619,6 @@ CLI.streamLogs = function() {
         Log.stream(tdb[k].opts.pm_err_log_path,
                    p.basename(tdb[k].opts.script, '.js') + ' err');
     }
-    // list.forEach(function(l) {
-    //   if (l.opts.pm_out_log_path)
-    //     Log.stream(l.opts.pm_out_log_path,
-    //                p.basename(l.opts.script, '.js') + ' out');
-    //   if (l.opts.pm_err_log_path)
-    //     Log.stream(l.opts.pm_err_log_path,
-    //                p.basename(l.opts.script, '.js') + ' err');
-    // });
   });
 };
 
