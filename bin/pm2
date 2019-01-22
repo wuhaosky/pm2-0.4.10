@@ -285,7 +285,7 @@ CLI.startFile = function(script) {
   if (commander.instances &&
       isNaN(parseInt(commander.instances)) &&
       commander.instances != 'max') {
-    console.log(PREFIX_MSG + ' [ERROR] instance option must be an integer ot the "max" string');
+    console.log(PREFIX_MSG + ' [ERROR] instance option must be an integer or the "max" string');
     process.exit(ERROR_EXIT);
   }
 
@@ -312,18 +312,18 @@ CLI.startFile = function(script) {
     console.log(PREFIX_MSG + 'Configuration : ', appConf);
     console.log(PREFIX_MSG + 'You can write the current configuration by adding -w option');
   }
-
-  Satan.executeRemote('findByScript', {script : appConf.script}, function(err, exec) {
-      if (exec && !commander.force) {
-        console.log(PREFIX_MSG_ERR + 'Script already launched, add -f option to force re execution');
-        process.exit(ERROR_EXIT);
-      }
-
+  // 检查脚本是否已启动
+  Satan.executeRemote('findByScript', {script : appConf.script}, function(err, exec) { // 返回的exec是God.clusters_db中正在执行appConf.script的pm2进程的opts；若没有找到，则返回null
+    if (exec && !commander.force) {
+      console.log(PREFIX_MSG_ERR + 'Script already launched, add -f option to force re execution'); // 脚本已经启动，添加-f选项强制重新执行
+      process.exit(ERROR_EXIT);
+    }
+    // 创建pm2进程集群
     Satan.executeRemote('prepare', resolvePaths(appConf), function() {
-        console.log(PREFIX_MSG + 'Process launched');
-        speedList();
-      });
+      console.log(PREFIX_MSG + 'Process launched');
+      speedList();
     });
+  });
 };
 
 CLI.startFromJson = function(cmd) {
@@ -636,16 +636,18 @@ CLI.killDaemon = function() {
 
 //
 // Private methods
+// 可视化的列出当前所有pm2进程的信息，并正常退出撒旦进程
 //
 function speedList() {
   Satan.executeRemote('list', {}, function(err, list) {
     UX.dispAsTable(list);
-    process.exit(SUCCESS_EXIT);
+    process.exit(SUCCESS_EXIT); // 撒旦进程正常退出
   });
 }
 
 //
 // Resolving path, seing if default ...
+// 解析路径，查看是否是默认
 //
 function resolvePaths(app) {
   app["pm_exec_path"]    = path.resolve(process.cwd(), app.script);
